@@ -1,20 +1,12 @@
-
+/*[undone]Track_car_V3.0 20191220 by yee11111*/
 int trigPin = 12;                  //Trig Pin
-
-long duration, cm, inches;
-int R1=A0,R2=A1,Mid=A3,L2=A4,L1=A2;                                    //ledin
-double R1Max=500,R2Max=500,MMax=500,L1Max=500,L2Max=500;                //Max             ***********************************************V2.0
-double R1min=90,R2min=90,Mmin=90,L1min=90,L2min=90;                     //min
-double R1n,R2n,Mn,L1n,L2n;                                              //database normalization
-float ffix=0.97,bfix=0.97;                                             //fix num
+long duration, cm, inches; float  ffix=0.97,bfix=0.97;                 //fix num
+double R1=A0,R2=A1,Mid=A3,L2=A4,L1=A2;                                 //ledin
+double R1Max=500,R2Max=500,MMax=500,L1Max=500,L2Max=500;               //Max            
+double R1min=90,R2min=90,Mmin=90,L1min=90,L2min=90;                    //min
+double R1n,R2n,Mn,L1n,L2n;                                             //database normalization                              
 double hop=0,kp=150,ki=0.001,kd=1000,error=0,np=0;
 double pre_error=0,sum_error=0,maxSpeed=250,baseSpeed=230;
-
-/*
-180 60 40
-70  0.001  1000
-speed 100 pid 150 0.001 1000
-*/
 
 void font(int sp,float ffix)  //6L5R
 { analogWrite(5, sp);analogWrite(6, sp*ffix); digitalWrite(4, 0);digitalWrite(7, 1); }
@@ -47,7 +39,6 @@ void init_V3()
  whelstop();
 }
 
-
 void take_err() 
 { double d2=2,d1=1,d0=0,dd2=1,dd4=1,dd1=1,dd5=1; int Hs=700,Ls=200; 
 if(analogRead(L2)>Hs&&analogRead(L1)>Hs&&analogRead(Mid)>Hs&&analogRead(R1)>Hs&&analogRead(R2)<Ls) {dd4=0;dd5=0; }   //11110
@@ -67,7 +58,6 @@ void crtl_V5()
    if(rightSpeed<0){digitalWrite(7, 0);}else{digitalWrite(7, 1);}
    if(leftSpeed<0) {digitalWrite(4, 1);}else{digitalWrite(4, 0);}
    analogWrite(6,abs(rightSpeed));analogWrite(5,abs(leftSpeed));  
-   //Serial.print(error); Serial.print("   "); Serial.print(rightSpeed); Serial.print("   "); Serial.println(leftSpeed);
    pre_error = error;  sum_error += error;
 }
 
@@ -77,8 +67,6 @@ void take_dist_V1()
   pinMode(trigPin, INPUT);  // Serial.println(analogRead(trigPin));          // read echo 
   duration = pulseIn(trigPin, HIGH);   // high time 
   cm = (duration/2) / 29.1; inches = (duration/2) / 74; // trans into cm or inch
-  //Serial.print("Distance : ");  Serial.print(inches);Serial.print("in,   ");Serial.print(cm);Serial.print("cm");Serial.println();
-  //delay(250);
 }
 
 void rond_V1()
@@ -86,17 +74,13 @@ void rond_V1()
   if(inches<=cc1) { maxSpeed=100; }
   while(cm<=cc2)
   {
-   whelstop();
-   while(inches<200){ltrnS(100,ffix);}
-   font(100,ffix); delay(1);
-   rtrnS(100,ffix); delay(1);
+   whelstop();  while(inches<200){ltrnS(100,ffix);}
+   font(100,ffix); delay(1);  rtrnS(100,ffix); delay(1);
   }
   if(cm==0) { maxSpeed=120; }
 }
-
-
 void fontline_V3() {take_dist_V1(); Maxmin_norml_V2(); take_err(); crtl_V5(); }
-/***********************************************************************************************setup******************************************************************************************************************************************/
+
 void setup() {
   Serial.begin(9600);
   pinMode(4, OUTPUT);pinMode(5, OUTPUT);pinMode(6, OUTPUT);pinMode(7, OUTPUT); //motor pinput
@@ -109,49 +93,6 @@ void loop() {
   Maxmin_norml_V2(); //take_dist_V1();
   if(analogRead(A7)==0)
   {  //init_V3();
-    while(1)
-    { 
-        if(analogRead(A7)==0) { while(1)  {  fontline_V3();}  }
-    }   
+    while(1) {  if(analogRead(A7)==0) { while(1)  {  fontline_V3();}  } }   
   }
- 
 }
-
-/**************************************************************************************************pinout*******************************************************************************************************************************************************/
-
-
-
-
-
-
-
-/*
- A0----->R1
- A1----->R2
- A2----->L1
- A3----->M
- A4----->L2
-
-
-out=(x-min)/(max-min)  //database normalization
-
-
-A0 RJ25 plug 4 (default not-connected)
-A1 RJ25 plug 4 (default not-connected)
-A2 RJ25 plug 3 ultrasonic
-A3 RJ25 plug 3 ultrasonic
-A6 light sensor
-A7 button
-D2 IR RCV
-D3 IR TX
-D4 DIR2 - direction motor2
-D5 PWM2 - pwm motor2
-D6 PWM1 - pwn motor1
-D7 DIR1 - direction motor1
-D8 buzzer
-D9 RJ25 plug 2 linefollower
-D10 RJ25 plug 2 linefollower
-D11 RJ25 plug 1 (default not-connected)
-D12 RJ25 plug 1 (default not-connected)
-D13 2 WS2812 RGB leds
- */
