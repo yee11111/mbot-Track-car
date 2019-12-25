@@ -2,7 +2,7 @@
 int trigPin = 12;                  //Trig Pin
 long duration, cm, inches;
 int R1=A0,R2=A1,Mid=A3,L2=A4,L1=A2;                                    //ledin
-double R1Max=500,R2Max=500,MMax=500,L1Max=500,L2Max=500;                //Max             ***********************************************V2.0
+double R1Max=500,R2Max=500,MMax=500,L1Max=500,L2Max=500;                //Max          
 double R1min=90,R2min=90,Mmin=90,L1min=90,L2min=90;                     //min
 double R1n,R2n,Mn,L1n,L2n;                                              //database normalization
 float ffix=0.97,bfix=0.97;                                             //fix num
