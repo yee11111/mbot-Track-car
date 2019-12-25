@@ -10,6 +10,4 @@ Track_car_V5.0.c
 https://github.com/yee11111/mbot-Track-car/blob/master/Track_car_V5.0.c
 
 
-[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)](https://www.youtube.com/watch?v=StTqXEQ2l-Y "Everything Is AWESOME")
-
-{%youtube iNBR9Mw5WDs %}
+[![Everything Is AWESOME](https://img.youtube.com/vi/iNBR9Mw5WDs/0.jpg)](https://www.youtube.com/watch?v=iNBR9Mw5WDs "Everything Is AWESOME")
